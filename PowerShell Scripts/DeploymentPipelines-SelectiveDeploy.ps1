@@ -21,7 +21,7 @@ $stageOrder = 0                     # The order of the source stage. Development
 
 $datasetName = "AdventureWorks Sales"       # The name of the dataset to be deployed
 $reportName = "AdventureWorks Sales"        # The name of the report to be deployed
-$dashboardName = " FILL ME IN "     # The name of the dashboard to be deployed
+$dashboardName = ""     # The name of the dashboard to be deployed
 
 # End Parameters =======================================
 
@@ -46,13 +46,14 @@ try {
 
     $dataset = $artifacts.datasets | Where-Object {$_.artifactDisplayName -eq $datasetName}
     $report = $artifacts.reports | Where-Object {$_.artifactDisplayName -eq $reportName}
+    $dashboard = $artifacts.dashboards | Where-Object {$_.artifactDisplayName -eq $dashboardName}
 
-    if(!$dataset -or !$report ){
+    if(!$dataset -or !$report -or !$dashboard){
         Write-Host "One or more of the requested artifacts was not found"
         return
     }
 
-    if($dataset.Length -gt 1 -or $report.Length -gt 1 ){
+    if($dataset.Length -gt 1 -or $report.Length -gt 1 -or $dashboard.Length -gt 1){
         Write-Host "One or more of the requested artifact names match multiple instances"
         return
     }
@@ -71,6 +72,9 @@ try {
             @{sourceId = $report.artifactId }
         )        
             
+        dashboards = @(
+            @{sourceId = $dashboard.artifactId }
+        )
 
 
         options = @{
