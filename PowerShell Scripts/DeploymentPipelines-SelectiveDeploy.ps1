@@ -16,7 +16,7 @@
 # Parameters - fill these in before running the script!
 # =====================================================
 
-$pipelineName = " Deploy to acc "      # The name of the pipeline
+$pipelineName = " Deploy to acc"      # The name of the pipeline
 $stageOrder = 0                     # The order of the source stage. Development (0), Test (1).
 
 $datasetName = "AdventureWorks Sales"       # The name of the dataset to be deployed
